@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/asset-schema.json",
+  "title": "Autonomous Graphics Asset",
+  "description": "Schema for a graphics asset managed by the autonomous memory system.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "assetType",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique asset identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human readable asset name."
+    },
+    "assetType": {
+      "type": "string",
+      "enum": [
+        "texture",
+        "model",
+        "material",
+        "animation",
+        "environment",
+        "lighting",
+        "weather",
+        "weapon",
+        "character",
+        "building",
+        "wildlife",
+        "effect",
+        "ui"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "approved", "in_review", "active", "deprecated"]
+    },
+    "version": {
+      "type": "string",
+      "description": "Asset version label."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "department": {
+      "type": "string",
+      "description": "Owning department such as graphics, environment, or animation."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "source": {
+      "type": "string",
+      "description": "Original source or generation pipeline."
+    },
+    "path": {
+      "type": "string",
+      "description": "Repository or asset storage path."
+    },
+    "thumbnail": {
+      "type": ["string", "null"],
+      "description": "Optional preview image path."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Asset-specific metadata payload.",
+      "additionalProperties": true,
+      "properties": {
+        "description": { "type": "string" },
+        "resolution": {
+          "type": ["object", "null"],
+          "properties": {
+            "width": { "type": "integer" },
+            "height": { "type": "integer" },
+            "units": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "polycount": { "type": ["integer", "null"] },
+        "materials": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "textures": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "author": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "description": "QC quality metrics for the asset.",
+      "additionalProperties": true,
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "reviewedBy": { "type": "string" },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    }
+  }
+}

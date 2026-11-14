@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/worker-schema.json",
+  "title": "Autonomous Worker",
+  "description": "Schema for an autonomous departmental worker agent in the autonomous graphics memory network.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workerId",
+    "name",
+    "role",
+    "department",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "capabilities",
+    "memory"
+  ],
+  "properties": {
+    "workerId": {
+      "type": "string",
+      "description": "Unique worker identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the autonomous worker."
+    },
+    "role": {
+      "type": "string",
+      "description": "Specific function or specialty of the worker."
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "graphics",
+        "environment",
+        "character-ai",
+        "animation",
+        "quality-control",
+        "research",
+        "operations",
+        "api",
+        "admin"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["idle", "active", "busy", "offline", "training", "retired"]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "owner": {
+      "type": ["string", "null"],
+      "description": "Owner or supervisor of the worker."
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Skills or competencies the worker can perform.",
+      "default": []
+    },
+    "memory": {
+      "type": "object",
+      "description": "Serialized memory footprint for the worker.",
+      "additionalProperties": true,
+      "properties": {
+        "summary": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "assets": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "knowledge": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "preferences": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "description": "Worker performance metadata.",
+      "additionalProperties": true,
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "tasksCompleted": { "type": "integer", "minimum": 0 },
+        "errorRate": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}
